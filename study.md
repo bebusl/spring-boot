@@ -446,3 +446,11 @@ public void updateTitle(Long id, String newTitle) {
 
 하지만 `update`는 **"상태를 바꾸는 행위"**이지 DB에 명령을 내리는 SQL 자체가 아니기 때문에, JPA가 그 상태 변화를 감지해서 나중에 SQL로 변환해주는 방식을 택한 것입니다.
 
+## Jpa! 데이터   변경자를 자동 추적해줘!  @EnableJpaAuditing
+Auditing == 데이터를 언제, 누가 생성하고 변경했는지 추적하는 것. 그걸 가능하게 해주는 애너테이션.
+
+스위치 켜기: @EnableJpaAuditing을 설정 파일(Configuration)에 붙여서 "이제부터 Auditing 기능을 쓸게!"라고 알립니다. (SpringBootDeveloperApplication에)
+
+Entity에 적용: 추적하고 싶은 엔티티에 @EntityListeners(AuditingEntityListener.class)를 붙입니다.(domain/Article에서 확인)
+
+상속/조합: createdAt, updatedAt 필드를 가진 BaseTimeEntity 클래스를 만들고, 이를 엔티티들이 상속받게 하면 끝입니다.
